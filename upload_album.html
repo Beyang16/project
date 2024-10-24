@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Album</title>
+</head>
+<body>
+  <h2>Create a New Album</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <label for="id_name">Album Name:</label>
+    <input type="text" name="name" id="id_name" required><br>
+
+    <label for="id_description">Album Description:</label>
+    <textarea name="description" id="id_description" rows="4" required></textarea><br>
+    
+  
+    <label for="photos">Upload Photos:</label>
+    <input type="file" name="photos" multiple required><br>
+
+    <label for="captions">Add Captions/Journals for each image:</label>
+    <div id="captions_container">
+      <!-- text areas will be added through our js  -->
+    </div><br>
+    
+    <button type="submit">Upload Album</button>
+  </form>
+
+  <script>
+    // js to add text areas para sa kada pic na e add
+    document.querySelector('input[name="photos"]').addEventListener('change', function(e) {
+      const container = document.getElementById('captions_container');
+      container.innerHTML = ''; 
+      for (let i = 0; i < e.target.files.length; i++) {
+        const label = document.createElement('label');
+        label.innerHTML = `Caption for Image ${i + 1}:`;
+        
+        const textarea = document.createElement('textarea');
+        textarea.name = 'captions';   
+        
+        container.appendChild(label);
+        container.appendChild(textarea);
+        container.appendChild(document.createElement('br'));
+      }
+    });
+  </script>
+</body>
+</html>

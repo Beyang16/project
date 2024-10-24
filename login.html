@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <img src="{% static 'images/your_logo.png' %}" class="logo-img">
+        </div>
+        <div class="settings">
+            <img src="{% static 'images/settings_icon.png' %}" class="settings-icon">
+        </div>
+    </header>
+
+    <p class="heading">Reminisce</p>
+    <h5>Log In</h5>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <!-- Add labels for the username and password fields -->
+        <input type="text" name="username" id="id_username" placeholder="Username" required>
+        <br>
+        
+        <input type="password" name="password" id="id_password" placeholder="Password" required>
+        <br>
+
+        
+            <button type="submit">Login</button>
+        
+
+        <p>Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+    </form>
+
+    <!-- Display messages for invalid login -->
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    
+</body>
+</html>

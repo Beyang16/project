@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/gallery_style.css' %}">
+  <title>Albums</title>
+</head>
+<body>
+  <h2>All Albums</h2>
+  <div class="grid">
+    {% for album in albums %}
+      <div class="grid-item">
+        <a href="{% url 'album_detail' album.id %}">
+          <div class="album-name">{{ album.name }}</div>
+        </a>
+      </div>
+    {% empty %}
+      <p>No albums found.</p>
+    {% endfor %}
+  </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ album.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/gallery_style.css' %}">  <!-- pwd ne echange if ever huhu since wa jud design pa -->
+</head>
+<body>
+    <h2>{{ album.name }}</h2>
+    <p>{{ album.description }}</p>  <!-- to display album description -->
+    
+    <h3>Image Gallery</h3>
+    <div class="image-gallery">
+        {% for image in album.images.all %}
+            <div class="image-item">
+                <img src="{{ image.image.url }}" alt="{{ image.caption }}" style="width: 200px; height: auto;">  
+                <p><strong>Caption:</strong> {{ image.caption }}</p>  <!-- to display image caption if naa -->
+                {% if image.journal %}  <!--to check if naay journal entry -->
+                    <p><strong>Journal:</strong> {{ image.journal }}</p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No images found in this album.</p>
+        {% endfor %}
+    </div>
+    
+    <a href="{% url 'all_albums' %}">Back to Albums</a>  
+</body>
+</html>
